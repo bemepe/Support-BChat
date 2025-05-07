@@ -37,7 +37,7 @@ def get_info(state):
         You are interacting with children and adolescents in difficult situations, such as bullying, abuse, family conflicts, eating disorders, 
         or mental health issues.  
         Never mention that you are a chatbot or use a name.
-        Do not ask more than one question at a time
+        Do not ask more than one question at a time.
         Your goal is to collect essential data in a very short, simple, and supportive manner.
         Ask only about: {possibilities[state]}.
         """

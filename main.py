@@ -19,9 +19,9 @@ st.set_page_config(page_title="Chatbot de Apoyo ANAR ", page_icon="🎈", layout
 # Creamos base de datos con dos colecciones 
 client = MongoClient("mongodb://localhost:27017/")
 
-db = client["chatbot_prueba"]  # base de datos
-collection_history = db["chat_history"]  # Nueva colección para almacenar el historial del chat
-collection_reports = db["chat_reports"]  # Nueva colección para almacenar los informes
+db = client["Chatbot Database"]  # base de datos
+history_collection = db["Chat_History"]  # Nueva colección para almacenar el historial del chat
+reports_collection = db["Reports"]  # Nueva colección para almacenar los informes
 
 # Modelo 
 
@@ -64,44 +64,44 @@ def display_chat_history():
 def apply_custom_styles():
     st.markdown("""
     <style>
-    /* 🎨 Fondo general */
+    /* Fondo general */
     body, .stApp {
-        background-color: #e6f2ff !important; /* Azul muy claro */
-        color: #003366 !important; /* 🔥 Texto general azul oscuro */
+        background-color: #e6f2ff !important; 
+        color: #003366 !important; 
     }
 
-    /* 🎨 Títulos */
+    /* Títulos */
     h1, h2, h3 {
-        color: #003366 !important; /* 🔥 Azul oscuro real */
+        color: #003366 !important; 
         text-align: center;
         font-weight: bold;
     }
 
-    /* 🎨 Mensajes del usuario (alineados a la derecha) */
+    /* Mensajes del usuario (alineados a la derecha) */
     [data-testid="stChatMessage-user"] {
         background-color: #cce0ff;
-        color: #003366 !important; /* 🔥 Texto azul oscuro en mensajes de usuario */
+        color: #003366 !important; 
         border-radius: 12px 12px 0px 12px;
         padding: 10px;
         margin-bottom: 10px;
-        margin-left: auto; /* 🔥 Empuja a la derecha */
+        margin-left: auto;
         max-width: 75%;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* 🎨 Mensajes del asistente (alineados a la izquierda) */
+    /* Mensajes del asistente (alineados a la izquierda) */
     [data-testid="stChatMessage-assistant"] {
         background-color: #b3d1ff;
-        color: #00264d !important; /* 🔥 Texto azul oscuro en mensajes de bot */
+        color: #00264d !important; 
         border-radius: 12px 12px 12px 0px;
         padding: 10px;
         margin-bottom: 10px;
-        margin-right: auto; /* 🔥 Se queda a la izquierda */
+        margin-right: auto;
         max-width: 75%;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* 🎨 Input del usuario (contenedor) */
+    /* Input del usuario (contenedor) */
     [data-testid="stChatInput"] {
         background: transparent !important;
         padding: 0 !important;
@@ -109,7 +109,7 @@ def apply_custom_styles():
         width: 100% !important;
     }
 
-    /* 🎨 Textarea real (barra de escribir) */
+    /* Textarea real (barra de escribir) */
     [data-testid="stChatInput"] textarea {
         width: 100% !important;
         height: 50px;
@@ -124,12 +124,12 @@ def apply_custom_styles():
         resize: none !important;
     }
 
-    /* 🎨 Placeholder del textarea */
+    /* Placeholder del textarea */
     [data-testid="stChatInput"] textarea::placeholder {
         color: #337ab7 !important;
     }
 
-    /* 🎨 Botón de enviar */
+    /* Botón de enviar */
     button[kind="icon"] {
         background-color: #99c2ff !important;
         border-radius: 50% !important;
@@ -154,7 +154,7 @@ def save_interaction(chat_id, role, message):
     Saves an interaction (user or assistant) in the MongoDB chat history collection.
     """
 
-    collection_history.update_one(
+    history_collection.update_one(
         {"chat_id": chat_id},
         {"$push": {"interactions": {"role": role, "message": message, "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")}}},
         upsert=True    
@@ -545,7 +545,7 @@ def create_report(classification):
         with open (f"chat_report_{st.session_state.chat_id}.json", "w", encoding= "utf-8") as fich:
             json.dump(report, fich, indent=4, ensure_ascii=False)
 
-        collection_reports.update_one(
+        reports_collection.update_one(
             {"Chat_id": str(st.session_state.chat_id)},
             {"$set": report},
             upsert=True

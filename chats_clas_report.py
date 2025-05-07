@@ -1,7 +1,7 @@
 from classification import create_classify_conversation
 import json
-from main_04 import invoke_chain
-from chats_more import chat_1, chat_2, chat_3, chat_4, chat_14, chat_10, chat_11, chat_12, chat_13, chat_15, chat_5, chat_6, chat_7, chat_8, chat_9
+from main import invoke_chain
+from chats import chat_1, chat_2, chat_3, chat_4, chat_14, chat_10, chat_11, chat_12, chat_13, chat_15, chat_5, chat_6, chat_7, chat_8, chat_9
 from langchain_core.messages import AIMessage, HumanMessage
 
 
