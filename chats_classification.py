@@ -193,7 +193,8 @@ def classify_chat(model_name):
         api_key="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",  # if you prefer to pass api key in directly instaed of using env vars
         # organization="...",
         # other params...
-    ).with_structured_output(ClassificationChat)
+    )
+    # .with_structured_output(ClassificationChat)
     
 
     classify_chain = classify_prompt | llm  
@@ -231,7 +232,7 @@ def main():
         chain = classify_chat(model_name)
         result = chain.invoke({"input": build_examples(chat)})
 
-        print(f"Chat{chat_id}\nClassification: {result} Model:{model_name} ")
+        print(f"Chat{chat_id}\nClassification: {result.content.strip()} Model:{model_name} ")
 
     else:
         print("Invalid chat number.")
