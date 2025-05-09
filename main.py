@@ -14,12 +14,12 @@ from datetime import datetime, UTC
 # STREAMLIT
 
 # Configuración inicial de la página
-st.set_page_config(page_title="Chatbot de Apoyo ANAR ", page_icon="🎈", layout="centered", initial_sidebar_state="collapsed" )
+st.set_page_config(page_title="Support-B Chat", page_icon="💬", layout="centered", initial_sidebar_state="expanded" )
 
 # Creamos base de datos con dos colecciones 
 client = MongoClient("mongodb://localhost:27017/")
 
-db = client["Chatbot Database"]  # base de datos
+db = client["Chatbot_Database"]  # base de datos
 history_collection = db["Chat_History"]  # Nueva colección para almacenar el historial del chat
 reports_collection = db["Reports"]  # Nueva colección para almacenar los informes
 
@@ -61,26 +61,41 @@ def display_chat_history():
 
 
 
-def apply_custom_styles():
+def apply_styles():
     st.markdown("""
     <style>
     /* Fondo general */
     body, .stApp {
-        background-color: #e6f2ff !important; 
-        color: #003366 !important; 
+        background-color: #f6fcff !important; 
+        color: #003366 !important;
+        margin: 0 !important;
+        padding-top: 0 !important;
+    }
+    /* Fondo blanco y contenido centrado en la barra lateral */
+    section[data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        text-align: center;
+        padding: 20px;
     }
 
     /* Títulos */
     h1, h2, h3 {
-        color: #003366 !important; 
+        color: #084f75 !important; 
         text-align: center;
         font-weight: bold;
     }
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #000000 !important;
+        text-align: center;
+    }
 
-    /* Mensajes del usuario (alineados a la derecha) */
+    /* Mensajes del usuario*/
     [data-testid="stChatMessage-user"] {
-        background-color: #cce0ff;
-        color: #003366 !important; 
+        background-color: #f3fbfe !important;
+        color: #000000 ; 
         border-radius: 12px 12px 0px 12px;
         padding: 10px;
         margin-bottom: 10px;
@@ -88,11 +103,19 @@ def apply_custom_styles():
         max-width: 75%;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
+                
+    /* Fondo blanco en el contenedor del input (chat input box completa) */
+    section[data-testid="stChatInput"] {
+        background-color: #f3fbfe !important;
+        border: 1px solid #dddddd;
+        border-radius: 24px;
+        padding: 8px;
+    }
 
-    /* Mensajes del asistente (alineados a la izquierda) */
+    /* Mensajes del asistente */
     [data-testid="stChatMessage-assistant"] {
-        background-color: #b3d1ff;
-        color: #00264d !important; 
+        background-color: #003366;
+        color: #000000 !important; 
         border-radius: 12px 12px 12px 0px;
         padding: 10px;
         margin-bottom: 10px;
@@ -101,51 +124,9 @@ def apply_custom_styles():
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* Input del usuario (contenedor) */
-    [data-testid="stChatInput"] {
-        background: transparent !important;
-        padding: 0 !important;
-        margin: 0 auto !important;
-        width: 100% !important;
-    }
 
-    /* Textarea real (barra de escribir) */
-    [data-testid="stChatInput"] textarea {
-        width: 100% !important;
-        height: 50px;
-        background-color: #e6f2ff !important;
-        color: #003366 !important;
-        border: 2px solid #99c2ff !important;
-        border-radius: 20px !important;
-        padding: 12px 20px !important;
-        font-size: 16px !important;
-        box-shadow: none !important;
-        outline: none !important;
-        resize: none !important;
-    }
-
-    /* Placeholder del textarea */
-    [data-testid="stChatInput"] textarea::placeholder {
-        color: #337ab7 !important;
-    }
-
-    /* Botón de enviar */
-    button[kind="icon"] {
-        background-color: #99c2ff !important;
-        border-radius: 50% !important;
-        color: #003366 !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    button[kind="icon"]:hover {
-        background-color: #80b3ff !important;
-        color: #001f4d !important;
-    }
     </style>
     """, unsafe_allow_html=True)
-
-
 
 
 
@@ -232,8 +213,7 @@ def handle_conversation():
     Handle conversation
     """
 
-    if "chat_id" not in st.session_state:
-        st.session_state.chat_id = f"{datetime.now().strftime('%d%m%Y-%H%M')}_{str(ObjectId())}"
+    if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
         st.session_state.answers = {}
         st.session_state.step = 0  # 0 = bienvenida, 1 = info, 2+ = cada pregunta
@@ -243,6 +223,7 @@ def handle_conversation():
         st.session_state.welcome_shown = False
         st.session_state.invalid_counter = 0 # Cuenta las respuestas invalidas (valid =0)
         st.session_state.forced_unnecessary = False  # Broma detectada 
+        st.session_state.chat_ended = False # Si el usuario escribe exit, cambiamo a True
 
     
     # Si ya hemos detectado que es innecesario, terminamos inmediatamente
@@ -250,13 +231,6 @@ def handle_conversation():
     if st.session_state.get("forced_unnecessary", False):
         return True
 
-    st.title("Chatbot de Apoyo para Niños y Adolescentes")
-    
-    st.markdown("""
-        ### Welcome to the Support Chat 
-        Feel free to share your feelings. We're here to help you.
-    """
-    )
     
     display_chat_history()
 
@@ -269,15 +243,17 @@ def handle_conversation():
         
 
         with st.chat_message("assistant"):
-            st.markdown(welcome_message.content.strip().strip('"'))
+            st.markdown("**Asistente:** " + welcome_message.content.strip().strip('"'))
         
         st.session_state.welcome_shown = True
         
 
+    if not st.session_state.get("chat_ended", False):
+        user_input = st.chat_input("Write to us, we are here to help you")
+    else:
+        user_input = None
 
     # Usuario responde:
-    user_input = st.chat_input("Write to us, we are here to help you")
-
 
     if user_input:
 
@@ -295,8 +271,10 @@ def handle_conversation():
         if user_input.lower() == "exit":
             with st.chat_message("assistant"):
                 st.markdown("Thank you for reaching out. The conversation has ended.")
-           
+            st.session_state.chat_ended = True
             return True
+           
+            
         
 
         # PASO 0: PREGUNTA AGE 
@@ -337,7 +315,8 @@ def handle_conversation():
                 
                 # Si es el ultimo estado == situation 
                 if current_i == len(st.session_state.states) - 1:
-                    st.session_state.missing_info = False  # Termina recogida
+                    st.session_state.missing_info = False # Termina recogida
+                    st.session_state.step += 1  
 
                 # Si no es el ultimo estado - Pasamos a la siguiente pregunta
                 else:
@@ -420,7 +399,7 @@ def handle_conversation():
         st.session_state.chat_history.append({
             "role": "assistant",
             "message": assistant_details,
-            "timestamp": datetime.now(UTC).isoformat()
+            "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")
         })
         
         save_interaction(st.session_state.chat_id, "assistant", assistant_details)
@@ -433,18 +412,8 @@ def handle_conversation():
         return
 
     if (st.session_state.step == len(st.session_state.states) + 2) and user_input:
-           
-        with st.chat_message("user"):
-            st.markdown(user_input)
-
-
-        st.session_state.chat_history.append({
-            "role": "user",
-            "message": user_input,
-            "timestamp": datetime.now(UTC).isoformat()
-        })
-
-        save_interaction(st.session_state.chat_id, "user", user_input)                
+        
+        # save_interaction(st.session_state.chat_id, "user", user_input)                
         st.session_state.step += 1 # step ==6 
 
         return True
@@ -487,7 +456,7 @@ def classify_conversation():
 
     # Corregir incoherencia: urgencia y uso innecesario no pueden coexistir
 
-    if classification_result.urgency == 1 and classification_result.unnecessary == 1:
+    if int(classification_result.urgency) == 1 and int(classification_result.unnecessary) == 1:
         classification_result.unnecessary = 0
     
     print(f"Chat{st.session_state.chat_id}\nClassification: {classification_result}\n")
@@ -512,7 +481,6 @@ def generate_final_message(classification):
     
     with st.chat_message("assistant"):
         st.markdown(final_message.content.strip().strip('"'))
-    
 
 
 # CREA UN INFORME JSON CON LA CONVERSACION Y LA CLASIFICACION
@@ -536,9 +504,9 @@ def create_report(classification):
     try: 
         report ={
             "chat_id": str(st.session_state.chat_id),
-            "Content": interactions,
-            "Classification_urgency": int(classification.urgency),
-            "Classification_unnecessary": int(classification.unnecessary),
+            "content": interactions,
+            "classification_urgency": int(classification.urgency),
+            "classification_unnecessary": int(classification.unnecessary),
         }
 
         # Guardamos el report en un archivo local en formato JSON
@@ -546,7 +514,7 @@ def create_report(classification):
             json.dump(report, fich, indent=4, ensure_ascii=False)
 
         reports_collection.update_one(
-            {"Chat_id": str(st.session_state.chat_id)},
+            {"chat_id": str(st.session_state.chat_id)},
             {"$set": report},
             upsert=True
         )
@@ -561,8 +529,39 @@ def main():
     """
     Main function to handle the entire flow: conversation, classification, and report generation.
     """
+    st.title("¡Bienvenido a Support-B Chat!")
+    
 
-    apply_custom_styles()
+    st.markdown("""
+    <div style='text-align: center; color: #084f75;'>
+    <h3>Chatbot de Apoyo para Niños y Adolescentes</h3>
+    <p>
+        Este es un espacio seguro donde puedes expresar cómo te sientes.<br>
+        No estas solo/a, cada palabra cuenta y lo que sientes es importante.<br>
+        Estoy aquí para escucharte, acompañarte y ayudarte de la mejor manera posible.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    apply_styles()
+    if "chat_id" not in st.session_state:
+        st.session_state.chat_id = f"{datetime.now().strftime('%d%m%Y-%H%M')}_{str(ObjectId())}"
+    with st.sidebar:
+
+        st.image("logo_chat.png", width=150)
+        
+        st.markdown(f"""
+        <div style='text-align: left; color: #084f75; font-size: 16px;'>
+        <p><strong>Chat ID:</strong><br> {st.session_state.chat_id} </p>
+
+        <p>📞 <strong>Teléfono de Contacto</strong><br>
+        639 58 55 68</p>
+
+        <p>📩 <strong>Correo</strong><br>
+        <a href='mailto:beatriz.mendez.peraza@alumnos.upm.es' style='color: #04698d; text-decoration: none;'>
+        beatriz.mendez@alumnos.upm.es</a></p>
+        </div>
+        """, unsafe_allow_html=True)
 
     # Manejar la conversación y obtener el historial de chat
     done = handle_conversation()
@@ -573,13 +572,14 @@ def main():
         classification = classify_conversation()
 
         generate_final_message(classification)
-
+        
         if classification is not None:
             create_report(classification)
         # Crear y mostrar el reporte final
         else:
             print("Error: No classification result available.")
 
+        st.rerun()
 if __name__ =="__main__":
     main()
     

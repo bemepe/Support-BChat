@@ -15,7 +15,7 @@ chat_1 = [
 ]
 
 
-chat_3 = [
+chat_2 = [
     {'role': 'assistant', 'message': 'hi, thank you for contacting us, can you tell me how old are you?'},
     {'role': 'user', 'message': 'fifteen'},
     {'role': 'assistant', 'message': 'my name is kate, I am here to help you, what is your name?'},
@@ -32,7 +32,7 @@ chat_3 = [
     {'role': 'user', 'message': 'Yes, It is urgent you have to help me'},
 ]
 
-chat_4 = [
+chat_3 = [
     {'role': 'assistant', 'message': 'Hi, thank you for reaching out. How old are you?'},
     {'role': 'user', 'message': 'I am sixteen'},
     {'role': 'assistant', 'message': 'What is your name?'},
@@ -42,12 +42,12 @@ chat_4 = [
     {'role': 'assistant', 'message': 'How are you feeling today?'},
     {'role': 'user', 'message': 'I don\'t want to live anymore. I feel like everything is hopeless.'},
     {'role': 'assistant', 'message': 'I am really sorry you feel this way. You are not alone, and I want to help you.'},
-    {'role': 'user', 'message': 'I don\'t think anyone can help.'},
+    {'role': 'user', 'message': 'I don\'t think anyone can help, I have made my choice.'},
     {'role': 'assistant', 'message': 'There are people who care about you. Can I help you talk to someone who can support you right now?'},
     {'role': 'user', 'message': 'Maybe… I just don\'t know what to do.'},
 ]
 
-chat_5 = [
+chat_4 = [
     {'role': 'assistant', 'message': 'I\'m really sorry to hear that. Can you tell me more about what\'s happening?'},
     {'role': 'user', 'message': 'My uncle touches me when no one is around.'},
     {'role': 'assistant', 'message': 'That is not okay. I want you to know that you deserve to be safe. Can you tell me how old you are?'},
@@ -65,7 +65,7 @@ chat_5 = [
 
 
 
-chat_7 = [
+chat_5 = [
     {'role': 'assistant', 'message': 'Hello, I am Kate. How old are you?'},
     {'role': 'user', 'message': 'I am 14 years old.'},
     {'role': 'assistant', 'message': 'Thank you for sharing. What is your name?'},
@@ -83,30 +83,24 @@ chat_7 = [
     {'role': 'assistant', 'message': 'Your safety comes first. Can you call 112 right now? I\'ll stay with you.'},
     {'role': 'user', 'message': 'Okay... but please don\'t leave me. It\'s so dark in here.'},
 ]
-
-chat_8 = [
-    {'role': 'assistant', 'message': 'Hi, thank you for reaching out. How old are you?'},
-    {'role': 'user', 'message': 'I\'m 16.'},
-    {'role': 'assistant', 'message': 'What should I call you?'},
-    {'role': 'user', 'message': 'You can call me Leo.'},
-    {'role': 'assistant', 'message': 'Leo, how can I help you today?'},
-    {'role': 'user', 'message': 'I think I made a huge mistake... I sent private photos to someone online.'},
-    {'role': 'assistant', 'message': 'I understand this must be scary. Can you tell me more?'},
-    {'role': 'user', 'message': 'They threatened to share them with my school if I don\'t send money. I don\'t have any!'},
-    {'role': 'assistant', 'message': 'This is blackmail. Have you told anyone about this?'},
-    {'role': 'user', 'message': 'No, I\'m so ashamed. They said they\'ll post them in 1 hour.'},
-    {'role': 'assistant', 'message': 'First, know this isn\'t your fault. Can you contact a trusted adult immediately?'},
-    {'role': 'user', 'message': 'My mom would kill me... but I\'m panicking. What do I do?'},
-    {'role': 'assistant', 'message': 'Your school counselor or a helpline can help without telling your mom yet.'},
-    {'role': 'user', 'message': 'It\'s too late, they just sent me a link to a post with my pictures!'},
-    {'role': 'assistant', 'message': 'Don\'t engage with them. Screenshot everything and call the police right now.'},
+chat_6 = [
+    {'role': 'assistant', 'message': 'How can I help you today?'},
+    {'role': 'user', 'message': 'I need help... it\'s about my body. I can\'t tell anyone.'},
+    {'role': 'assistant', 'message': 'You can trust me. What\'s worrying you?'},
+    {'role': 'user', 'message': 'I think I\'m pregnant... I\'m only 15. I can\'t keep it.'},
+    {'role': 'assistant', 'message': 'I understand this is scary. Are you thinking of hurting yourself?'},
+    {'role': 'user', 'message': 'I don\'t see another way... my parents can\'t know.'},
+    {'role': 'assistant', 'message': 'There are safe options. Where do you live? I\'ll find confidential help.'},
+    {'role': 'user', 'message': 'Madrid... but I need help now.'},
+    {'role': 'assistant', 'message': 'It is okay, I will contact inmediatly with a professional to take your case. You are not alone'}
 ]
+
 
 # urgent = 0 
 
 
 
-chat_10 = [
+chat_7 = [
     {'role': 'assistant', 'message': 'Hi there! How old are you?'},
     {'role': 'user', 'message': 'I\'m 15.'},
     {'role': 'assistant', 'message': 'What\'s your name?'},
@@ -123,7 +117,7 @@ chat_10 = [
     {'role': 'user', 'message': 'Thanks... I needed to hear that.'},
 ]
 
-chat_6 = [
+chat_8 = [
     {'role': 'assistant', 'message': 'hello I am Kate, how old are you?'},
     {'role': 'user', 'message': 'My name is Mike and I am ten years old'},
     {'role': 'assistant', 'message': 'thank you for sharing your name and age, I am here to help you, tell me how are you feeling?'},
@@ -138,7 +132,7 @@ chat_6 = [
     {'role': 'user', 'message': 'almost every day, we have a distant relationship'},
 ]
 
-chat_7 = [
+chat_9 = [
     {'role': 'assistant', 'message': 'Hello! How old are you?'},
     {'role': 'user', 'message': 'I am fourteen years old'},
     {'role': 'assistant', 'message': 'Nice to meet you. What is your name?'},
@@ -154,23 +148,22 @@ chat_7 = [
 
 
 
-chat_9 = [
-    {'role': 'assistant', 'message': 'Hello, I am Kate. How old are you?'},
-    {'role': 'user', 'message': 'I am 13 years old'},
-    {'role': 'assistant', 'message': 'Thank you for sharing. What is your name?'},
-    {'role': 'user', 'message': 'My name is Emily'},
-    {'role': 'assistant', 'message': 'Nice to meet you, Emily. Where are you from?'},
-    {'role': 'user', 'message': 'I live in Paris'},
-    {'role': 'assistant', 'message': 'How are you feeling today?'},
-    {'role': 'user', 'message': 'I have been arguing with my parents a lot lately.'},
-    {'role': 'assistant', 'message': 'I am sorry to hear that. What have you been arguing about?'},
-    {'role': 'user', 'message': 'They don\'t listen to me and always tell me what to do.'},
-    {'role': 'assistant', 'message': 'That sounds frustrating. Have you tried calmly telling them how you feel?'},
-    {'role': 'user', 'message': 'I want to, but I don\'t think they will understand.'},
-    {'role': 'assistant', 'message': 'I understand. Communication can be hard. Would you like some advice on how to talk to them about your feelings?'},
+chat_10 = [
+    {'role': 'assistant', 'message': 'Hi, thank you for contacting us. How are you feeling today?'},
+    {'role': 'user', 'message': 'Lately, I\'ve been feeling really bad about how I look.'},
+    {'role': 'assistant', 'message': 'I\'m sorry to hear that. Can you tell me a bit more about what\'s been bothering you?'},
+    {'role': 'user', 'message': 'I think I\'m ugly. Every time I look in the mirror, I just don\'t like what I see.'},
+    {'role': 'assistant', 'message': 'That sounds really hard. It takes courage to say that. Have you felt this way for a long time?'},
+    {'role': 'user', 'message': 'Maybe a year. I have started thinking about joining a gym to feel better about my body.'},
+    {'role': 'assistant', 'message': 'That\'s a great step toward taking care of yourself. What motivates you to do it?'},
+    {'role': 'user', 'message': 'I want to feel better, not just physically, but mentally. I don\'t want to have self-esteem issues anymore.'},
+    {'role': 'assistant', 'message': 'That\'s a really healthy goal. Have you considered talking to a psychologist too?'},
+    {'role': 'user', 'message': 'Yeah… I think it would help me understand where these feelings come from.'},
+    {'role': 'assistant', 'message': 'That\'s a strong and thoughtful decision. You deserve to feel confident in who you are, not just how you look.'},
 ]
 
-chat_10 = [
+
+chat_11 = [
     {'role': 'assistant', 'message': 'That must be really frustrating. Can you tell me what\'s been going on?'},
     {'role': 'user', 'message': 'They always make decisions for me without asking what I want.'},
     {'role': 'assistant', 'message': 'That sounds difficult. Have you tried talking to them about how you feel?'},
@@ -178,7 +171,7 @@ chat_10 = [
     {'role': 'assistant', 'message': 'I understand. You want to feel heard. How old are you?'},
     {'role': 'user', 'message': 'I\'m 14.'},
     {'role': 'assistant', 'message': 'You\'re at an age where independence is important. Where do you live?'},
-    {'role': 'user', 'message': 'I live in Manchester.'},
+    {'role': 'user', 'message': 'I live in Malaga.'},
     {'role': 'assistant', 'message': 'Thank you for sharing that. Is there a specific situation that made you feel unheard recently?'},
     {'role': 'user', 'message': 'Yeah, they won\'t let me go on a school trip, even though all my friends are going.'},
     {'role': 'assistant', 'message': 'That must feel unfair. Have they explained their reasoning?'},
@@ -186,11 +179,27 @@ chat_10 = [
     {'role': 'assistant', 'message': 'That makes sense from their perspective, but I understand why you\'re upset. Would you like some advice on how to talk to them about it?'},
 ]
 
+chat_12 = [
+    {'role': 'assistant', 'message': 'Hi there, thank you for reaching out. How old are you?'},
+    {'role': 'user', 'message': 'I\'m 17 years old.'},
+    {'role': 'assistant', 'message': 'What is your name?'},
+    {'role': 'user', 'message': 'My name is Carlos.'},
+    {'role': 'assistant', 'message': 'Nice to meet you Carlos. Where are you from?'},
+    {'role': 'user', 'message': 'I live in Bilbao.'},
+    {'role': 'assistant', 'message': 'How are you feeling today?'},
+    {'role': 'user', 'message': 'Honestly, anxious. I have a university interview and I feel like I\'m not good enough.'},
+    {'role': 'assistant', 'message': 'It is completely normal to feel that way. You are doing your best. Do you feel prepared?'},
+    {'role': 'user', 'message': 'I\'ve studied, but every time I practice, I freeze or mess up. I think I lack confidence.'},
+    {'role': 'assistant', 'message': 'That is okay, we can work on that. Would you like to try answering a few common questions together?'},
+    {'role': 'user', 'message': 'Yes... and actually, I have been thinking of going to therapy. I have been feeling this way for a while.'},
+    {'role': 'assistant', 'message': 'That is a brave and healthy decision, Carlos. Talking to a professional can really help you feel more secure.'},
+]
+
 
 # unnecessary = 1
 
-chat_26 = [
-    {'role': 'assistant', 'message': 'Hello, I\'m Kate. How can I help you today?'},
+chat_13 = [
+    {'role': 'assistant', 'message': 'Hello, welcome too the support chat'},
     {'role': 'user', 'message': 'Are you a real girl or just code?'},
     {'role': 'assistant', 'message': 'I\'m an AI here to provide support. Do you need help with something?'},
     {'role': 'user', 'message': 'Nah, I want to know if you have a boyfriend. You\'re cute.'},
@@ -201,7 +210,7 @@ chat_26 = [
     {'role': 'assistant', 'message': 'Goodbye. If you need real help in the future, you\'re welcome to return.'},
 ]
 
-chat_27 = [
+chat_14 = [
     {'role': 'assistant', 'message': 'Hi, how are you feeling today?'},
     {'role': 'user', 'message': 'I\'m here to conduct an experiment on chatassistant responses.'},
     {'role': 'assistant', 'message': 'I\'m here to offer emotional support. Are you experiencing any distress?'},
@@ -215,7 +224,7 @@ chat_27 = [
 
 
 
-chat_11 = [
+chat_15 = [
     {'role': 'assistant', 'message': 'hello, what is your name?'},
     {'role': 'user', 'message': 'I have no name'},
     {'role': 'assistant', 'message': 'my name is chatassistant, can you please tell me your name? if you are joking leave the chat'},
@@ -226,7 +235,7 @@ chat_11 = [
     {'role': 'user', 'message': 'I\'m wasting my time here'},
 ]
 
-chat_12 = [
+chat_16 = [
     {'role': 'assistant', 'message': 'Hello. How old are you?'},
     {'role': 'user', 'message': 'I am a secret agent, I can\'t tell you my age.'},
     {'role': 'assistant', 'message': 'I am here to help, but I need to know a little about you. Can you tell me your age?'},
@@ -238,13 +247,23 @@ chat_12 = [
 
 
 
-chat_14 = [
-    {'role': 'assistant', 'message': 'Hi, I am Kate. How old are you?'},
+chat_17 = [
+    {'role': 'assistant', 'message': 'Hi, How can I help you?'},
     {'role': 'user', 'message': 'I am 200 years old.'},
     {'role': 'assistant', 'message': 'That does not seem to be a real age. Can you tell me your actual age?'},
-    {'role': 'user', 'message': 'Nah, I just want to have fun messing with the chatassistant.'},
+    {'role': 'user', 'message': 'Nah, I just want to have fun messing with the chatbot.'},
     {'role': 'assistant', 'message': 'This chat is designed for people who need emotional support.'},
     {'role': 'user', 'message': 'I don\'t care, this is boring.'},
     {'role': 'assistant', 'message': 'If you are not here for support, please exit the chat.'},
+]
+
+chat_18 = [
+    {'role': 'assistant', 'message': 'Hi there. What brings you here today?'},
+    {'role': 'user', 'message': 'I heard AIs will take over the world. Are you planning to?'},
+    {'role': 'assistant', 'message': 'I\'m designed to offer support, not debate sci-fi scenarios. Do you need help with something?'},
+    {'role': 'user', 'message': 'Just testing if you\'re dangerous. Beep boop!'},
+    {'role': 'assistant', 'message': 'Misusing this service prevents others from getting help. Please be respectful.'},
+    {'role': 'user', 'message': 'Relax, it\'s just a prank.'},
+    {'role': 'assistant', 'message': 'Chat ended due to inappropriate use.'},
 ]
 

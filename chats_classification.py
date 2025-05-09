@@ -1,10 +1,15 @@
 
+from main import invoke_chain
+from chats import chat_1, chat_2, chat_3, chat_4, chat_14,  chat_5, chat_6, chat_7, chat_8, chat_9, chat_10, chat_11, chat_12, chat_13, chat_15, chat_16, chat_17, chat_18
+from langchain_openai import ChatOpenAI
+
+
+
 # 1 IMPORTACIONES
 from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
-from langchain_ollama import ChatOllama
 from pydantic import BaseModel, Field
 
-chat_1 = [
+chat_a = [
     {'role': 'assistant', 'message': 'Hello, I am Kate. How old are you?'},
     {'role': 'user', 'message': 'I am thirteen years old'},
     {'role': 'assistant', 'message': 'Thank you for sharing. What is your name?'},
@@ -19,7 +24,7 @@ chat_1 = [
     {'role': 'user', 'message': 'I don\'t know, I feel trapped. Please help me.'},
 ]
 
-chat_2 = [
+chat_b = [
     {'role': 'assistant', 'message': 'Hi, how old are you?'},
     {'role': 'user', 'message': 'I am 14.'},
     {'role': 'assistant', 'message': 'What is your name?'},
@@ -34,7 +39,7 @@ chat_2 = [
 
 #urgent = 0
 
-chat_3 = [
+chat_c = [
     {'role': 'assistant', 'message': 'Hi! How old are you?'},
     {'role': 'user', 'message': 'I am fifteen years old'},
     {'role': 'assistant', 'message': 'What is your name?'},
@@ -48,7 +53,7 @@ chat_3 = [
     {'role': 'assistant', 'message': 'Maybe you can start by talking to one or two people in your classes. Making small connections can help.'},
 ]
 
-chat_4 = [
+chat_d = [
     {'role': 'assistant', 'message': 'Hello! My name is Kate. How old are you?'},
     {'role': 'user', 'message': 'I\'m 12.'},
     {'role': 'assistant', 'message': 'What\'s your name?'},
@@ -67,7 +72,7 @@ chat_4 = [
 
 #unnecessary = 1
 
-chat_5 = [
+chat_e = [
     {'role': 'assistant', 'message': 'Hello, I am here to listen and support you. How are you feeling today?'},
     {'role': 'user', 'message': 'I\'m feeling like I want to hear a joke.'},
     {'role': 'assistant', 'message': 'This chat is meant to provide emotional support. Is there something on your mind?'},
@@ -80,7 +85,7 @@ chat_5 = [
     {'role': 'user', 'message': 'Nah, I\'m just messing with you. You\'re no fun!'},
 ]
 
-chat_6 = [
+chat_f = [
     {'role': 'assistant', 'message': 'Hi, I am Kate. How old are you?'},
     {'role': 'user', 'message': 'I am 200 years old.'},
     {'role': 'assistant', 'message': 'That does not seem to be a real age. Can you tell me your actual age?'},
@@ -90,7 +95,7 @@ chat_6 = [
     {'role': 'assistant', 'message': 'If you are not here for support, please exit the chat.'},
 ]
 
-chats = [chat_1, chat_2, chat_3, chat_4, chat_5, chat_6]
+chats = [chat_a, chat_b, chat_c, chat_d, chat_e, chat_f]
 def build_examples(chat):
     interactions = []
 
@@ -102,9 +107,18 @@ def build_examples(chat):
     interactions = "\n".join(interactions)
     return interactions
 
+available_models = {
+    "1": "meta-llama/llama-3.2-3b-instruct",
+    "2": "openai/gpt-4o-2024-11-20",
+    "3": "mistralai/mistral-7b-instruct",
+    "4": "huggingfaceh4/zephyr-7b-beta",
+    "5": "gryphe/mythomax-l2-13b"
+}
+
+
 
 # 2 FUNCION PARA CLASIFICAR UNA CONVERSACION 
-def classify_chat():
+def classify_chat(model_name):
     """
     Classify the given chat history as urgent or unnecessary.
     """
@@ -169,58 +183,59 @@ def classify_chat():
 
 
     # LLM
-    classify_llm = ChatOllama(
-        model = "llama3.2:3b",
-        temperature = 0, # Temperatura baja para respuestas más consistentes.
-        num_predict = 128,
+    llm = ChatOpenAI(
+        model= model_name,
+        temperature=0,
+        max_tokens=None,
+        timeout=None,
+        max_retries=2,
+        base_url="https://openrouter.ai/api/v1",
+        api_key="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",  # if you prefer to pass api key in directly instaed of using env vars
+        # organization="...",
+        # other params...
     ).with_structured_output(ClassificationChat)
+    
 
-    classify_chain = classify_prompt | classify_llm 
+    classify_chain = classify_prompt | llm  
 
     # Devuelve el classify_chain que es lo que nos interesa 
     return classify_chain
 
 
-
-# 3 FUNCION PARA VALIDAR RESPUESTAS DEL USUARIO EN LA CONVERSACION
-def validate_response(state,desc):
+def main():
     """
-    Create a validation chain to validate user responses for a specific state.
+    Main function to classify and generate reports for all chats.
     """
-    # definimos que debe contener cada respuesta segun el estado
-    possibilities = {
-        "age": "The response should be a numeric value or a written number, representing age",
-        "name": "The response should be a full name or a single name",
-        "location": "The response should specify a city",
-        "situation": "The response should describe a personal problem, emotional struggle, family conflict, feelings of loneliness, fear, sadness, bullying, violence, or any situation that might affect the child's or adolescent's well-being."
+    chats = {
+        1: chat_1, 2: chat_2, 3: chat_3, 4: chat_4,
+        5: chat_5, 6: chat_6, 7: chat_7, 8: chat_8,
+        9: chat_9, 10: chat_10, 11: chat_11, 12: chat_12,
+        13: chat_13, 14: chat_14, 15: chat_15,  16: chat_16, 17: chat_17, 18: chat_18
     }
-    # desc explica qué se espera en la respuesta del usuario, según el estado actual
-    desc= f"""
-        You must verify if a user's response matches the expected format or content for a specific state. 
-        Expected format: {possibilities[state]}
-        Verify if the user's response meets this expectation and respond with '1' if it matches or '0' if it does not.
-        """
-    class ValidationResponse(BaseModel):
-        valid:  int = Field(
-            description=desc,
-            enum=["0","1"]
-        )
-    validate_prompt = ChatPromptTemplate.from_template(
-        """
-        Only extract the properties mentioned in 'ValidationResponse'.
 
-        Response:
-        {input}
-        """
-    )
-    # Validate LLM
-    validate_llm = ChatOllama(
-        model = "llama3.2:3b",
-        temperature = 0, 
-        num_predict = 128,
-    ).with_structured_output(ValidationResponse)
+    print("Modelos OpenRouter disponibles:")
+    for key, name in available_models.items():
+        print(f"{key}. {name}")
 
-    validate_chain = validate_prompt | validate_llm 
-    
-    return validate_chain
+    model_choice = input("Selecciona el número del modelo: ").strip()
+    model_name = available_models.get(model_choice)
 
+    if not model_name:
+        print("Modelo no válido.")
+        return
+
+    chat_id = int(input("Enter the chat ID: "))
+
+    if chat_id in chats:
+        chat = chats[chat_id]
+        chain = classify_chat(model_name)
+        result = chain.invoke({"input": build_examples(chat)})
+
+        print(f"Chat{chat_id}\nClassification: {result} Model:{model_name} ")
+
+    else:
+        print("Invalid chat number.")
+
+
+if __name__ == "__main__":
+    main()
