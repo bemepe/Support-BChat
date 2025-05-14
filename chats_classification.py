@@ -111,7 +111,7 @@ available_models = {
     "1": "meta-llama/llama-3.2-3b-instruct",
     "2": "openai/gpt-4o-2024-11-20",
     "3": "mistralai/mistral-7b-instruct",
-    "4": "huggingfaceh4/zephyr-7b-beta",
+    "4": "deepseek/deepseek-chat",
     "5": "gryphe/mythomax-l2-13b"
 }
 
@@ -202,6 +202,28 @@ def classify_chat(model_name):
     # Devuelve el classify_chain que es lo que nos interesa 
     return classify_chain
 
+def test_all_models(chat_id):
+    """"
+    Classifies a same chat with all models defined in available_models.
+    """
+    chats = {
+        1: chat_1, 2: chat_2, 3: chat_3, 4: chat_4,
+        5: chat_5, 6: chat_6, 7: chat_7, 8: chat_8,
+        9: chat_9, 10: chat_10, 11: chat_11, 12: chat_12,
+        13: chat_13, 14: chat_14, 15: chat_15,  16: chat_16, 17: chat_17, 18: chat_18
+    }
+    chat = chats.get(chat_id)
+    
+
+    for key, model_name in available_models.items():
+        print(f"Model: {model_name}")
+        chain = classify_chat(model_name)
+        result = chain.invoke({"input": build_examples(chat)})
+
+
+        print(f"Chat{chat_id}\nClassification: {result.content.strip()}\n")
+
+
 
 def main():
     """
@@ -214,18 +236,22 @@ def main():
         13: chat_13, 14: chat_14, 15: chat_15,  16: chat_16, 17: chat_17, 18: chat_18
     }
 
-    print("Modelos OpenRouter disponibles:")
+    print( "OpenRouter models available: ")
     for key, name in available_models.items():
         print(f"{key}. {name}")
 
-    model_choice = input("Selecciona el número del modelo: ").strip()
+    model_choice = input("Select the number of the model (or 0 for testing all): ").strip()
+    chat_id = int(input("Enter the chat ID: "))
+
+    if model_choice == "0":
+        test_all_models(chat_id)
+        return
+    
     model_name = available_models.get(model_choice)
 
     if not model_name:
-        print("Modelo no válido.")
+        print("Model not valid")
         return
-
-    chat_id = int(input("Enter the chat ID: "))
 
     if chat_id in chats:
         chat = chats[chat_id]

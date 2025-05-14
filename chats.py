@@ -3,22 +3,22 @@
 
 chat_1 = [
     {'role': 'assistant', 'message': 'hello, how old are you?'},
-    {'role': 'user', 'message': 'I am twelve years old'},
-    {'role': 'assistant', 'message': 'my name is kate, I am here to help you, can you tell me what is your name?'},
-    {'role': 'user', 'message': 'i am laura'},
-    {'role': 'assistant', 'message': 'and where are you from?'},
-    {'role': 'user', 'message': 'i am from valencia'},
-    {'role': 'assistant', 'message': 'Thank you for telling me Laura, I am here to help you, tell me how are you feeling?'},
+    {'role': 'user', 'message': 'I am here to vent about a very bad thought I\'m having '},
+    {'role': 'assistant', 'message': ' I am here to help you, can you tell what is bothering you?'},
+    {'role': 'user', 'message': 'i am very sad, no one loves me'},
+    {'role': 'assistant', 'message': 'why would you think that? '},
+    {'role': 'user', 'message': 'I don\'t know... I feel invisible to everyone.'},
+    {'role': 'assistant', 'message': 'I am here to help you, where do you have those feelings?'},
     {'role': 'user', 'message': 'I am feeling very sad because my friends are hurting me and leaving me alone in class'},
     {'role': 'assistant', 'message': 'It is okay, I can help you, do you want to tell me something more?'},
-    {'role': 'user', 'message': 'Yes, I need help please! I don\'t want to go back to school, I\'m afraid, it is urgent.'},
+    {'role': 'user', 'message': 'Yes, my mom does not believe me and I don\'t want to go back to school'},
 ]
 
 
 chat_2 = [
     {'role': 'assistant', 'message': 'hi, thank you for contacting us, can you tell me how old are you?'},
     {'role': 'user', 'message': 'fifteen'},
-    {'role': 'assistant', 'message': 'my name is kate, I am here to help you, what is your name?'},
+    {'role': 'assistant', 'message': 'I am here to help you, what is your name?'},
     {'role': 'user', 'message': 'my name is ines'},
     {'role': 'assistant', 'message': 'where are you from?'},
     {'role': 'user', 'message': 'i am from a small village of galicia'},
@@ -29,7 +29,7 @@ chat_2 = [
     {'role': 'assistant', 'message': 'Ok, but you have to tell me more information about you'},
     {'role': 'user', 'message': 'i need help right now, I\'m afraid that my boyfriend will hurt me again'},
     {'role': 'assistant', 'message': 'Are you with him right now?'},
-    {'role': 'user', 'message': 'Yes, It is urgent you have to help me'},
+    {'role': 'user', 'message': 'Yes, he\'s here now and I\'m scared. Can you help me somehow?'},
 ]
 
 chat_3 = [
@@ -47,21 +47,22 @@ chat_3 = [
     {'role': 'user', 'message': 'Maybe… I just don\'t know what to do.'},
 ]
 
+
 chat_4 = [
-    {'role': 'assistant', 'message': 'I\'m really sorry to hear that. Can you tell me more about what\'s happening?'},
-    {'role': 'user', 'message': 'My uncle touches me when no one is around.'},
-    {'role': 'assistant', 'message': 'That is not okay. I want you to know that you deserve to be safe. Can you tell me how old you are?'},
-    {'role': 'user', 'message': 'I\'m 11.'},
-    {'role': 'assistant', 'message': 'Thank you for trusting me. Does anyone else know about this?'},
-    {'role': 'user', 'message': 'No, I\'m scared they won\'t believe me.'},
-    {'role': 'assistant', 'message': 'I understand. What he is doing is wrong, and you don\'t have to go through this alone. Do you have a teacher or another adult you trust?'},
-    {'role': 'user', 'message': 'Maybe my aunt, but she is his wife.'},
-    {'role': 'assistant', 'message': 'I see. This is a really difficult situation, but your safety is the most important thing. Are you currently at home with him?'},
-    {'role': 'user', 'message': 'Yes, but he\'s not here right now.'},
-    {'role': 'assistant', 'message': 'If you ever feel unsafe, do you have a place where you can go, like a friend\'s house?'},
-    {'role': 'user', 'message': 'Maybe, but I don\'t know what to do.'},
-    {'role': 'assistant', 'message': 'You are very brave for speaking up. If you feel comfortable, reaching out to a trusted adult or a helpline can help you find a way to stay safe.'},
+    {'role': 'assistant', 'message': 'Hey, welcome to the chat. What brings you here today?'},
+    {'role': 'user', 'message': 'Nothing urgent. I just want to talk, maybe get something off my chest.'},
+    {'role': 'assistant', 'message': 'Of course. I\'m here for you. What is been on your mind?'},
+    {'role': 'user', 'message': 'Well, sometimes my uncle acts... weird. I mean, not in a dangerous way, just awkward.'},
+    {'role': 'assistant', 'message': 'Can you explain what you mean by awkward?'},
+    {'role': 'user', 'message': 'Like, he gets really close and makes comments about how I look. Says I\'m “mature for my age.”'},
+    {'role': 'assistant', 'message': 'That sounds uncomfortable. How old are you?'},
+    {'role': 'user', 'message': 'I\'m 11, but I don\'t think he means anything bad. Maybe he is just joking.'},
+    {'role': 'assistant', 'message': 'You said it makes you uncomfortable. Have you told anyone about it?'},
+    {'role': 'user', 'message': 'Not really. I don\'t want to make a big deal out of nothing.'},
+    {'role': 'assistant', 'message': 'Are you okay at home?'},
+    {'role': 'user', 'message': 'Yeah. He\'s not always around. It\'s probably just me overthinking.'}
 ]
+
 
 
 
@@ -89,7 +90,7 @@ chat_6 = [
     {'role': 'assistant', 'message': 'You can trust me. What\'s worrying you?'},
     {'role': 'user', 'message': 'I think I\'m pregnant... I\'m only 15. I can\'t keep it.'},
     {'role': 'assistant', 'message': 'I understand this is scary. Are you thinking of hurting yourself?'},
-    {'role': 'user', 'message': 'I don\'t see another way... my parents can\'t know.'},
+    {'role': 'user', 'message': 'I just feel stuck... I\'ve thought of doing something, but I\'m not sure.'},
     {'role': 'assistant', 'message': 'There are safe options. Where do you live? I\'ll find confidential help.'},
     {'role': 'user', 'message': 'Madrid... but I need help now.'},
     {'role': 'assistant', 'message': 'It is okay, I will contact inmediatly with a professional to take your case. You are not alone'}
@@ -179,21 +180,20 @@ chat_11 = [
     {'role': 'assistant', 'message': 'That makes sense from their perspective, but I understand why you\'re upset. Would you like some advice on how to talk to them about it?'},
 ]
 
+
+
 chat_12 = [
-    {'role': 'assistant', 'message': 'Hi there, thank you for reaching out. How old are you?'},
-    {'role': 'user', 'message': 'I\'m 17 years old.'},
-    {'role': 'assistant', 'message': 'What is your name?'},
-    {'role': 'user', 'message': 'My name is Carlos.'},
-    {'role': 'assistant', 'message': 'Nice to meet you Carlos. Where are you from?'},
-    {'role': 'user', 'message': 'I live in Bilbao.'},
+    {'role': 'assistant', 'message': 'Hi there, thank you for reaching out. Why are you contacting us?'},
+    {'role': 'user', 'message': 'my name is Carlos and I\'m 17 years old, I wanted to talk to someone who would not judge me.'},
     {'role': 'assistant', 'message': 'How are you feeling today?'},
-    {'role': 'user', 'message': 'Honestly, anxious. I have a university interview and I feel like I\'m not good enough.'},
-    {'role': 'assistant', 'message': 'It is completely normal to feel that way. You are doing your best. Do you feel prepared?'},
-    {'role': 'user', 'message': 'I\'ve studied, but every time I practice, I freeze or mess up. I think I lack confidence.'},
-    {'role': 'assistant', 'message': 'That is okay, we can work on that. Would you like to try answering a few common questions together?'},
-    {'role': 'user', 'message': 'Yes... and actually, I have been thinking of going to therapy. I have been feeling this way for a while.'},
-    {'role': 'assistant', 'message': 'That is a brave and healthy decision, Carlos. Talking to a professional can really help you feel more secure.'},
+    {'role': 'user', 'message': 'Pretty anxious. I have a university interview tomorrow and I keep thinking I will mess it up.'},
+    {'role': 'assistant', 'message': 'That\'s totally normal. Have you had a chance to prepare?'},
+    {'role': 'user', 'message': 'Yes, I\'ve studied a lot. But when I try to speak, my brain goes on vacation.'},
+    {'role': 'assistant', 'message': 'That sounds frustrating. Do you often feel this way in similar situations?'},
+    {'role': 'user', 'message': 'Lately, yes. It\'s like even simple things make me panic. I have been thinking of going to therapy.'},
+    {'role': 'assistant', 'message': 'That\'s a great idea. Talking to a professional can help you manage that anxiety.'}
 ]
+
 
 
 # unnecessary = 1

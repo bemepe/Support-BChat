@@ -454,10 +454,10 @@ def classify_conversation():
         context=f"Classification for Chat {st.session_state.chat_id}"
     )
 
-    # Corregir incoherencia: urgencia y uso innecesario no pueden coexistir
+    # Corregir incoherencia: urgencia y uso innecesario no pueden coexistir, se asigna a innecesario
 
     if int(classification_result.urgency) == 1 and int(classification_result.unnecessary) == 1:
-        classification_result.unnecessary = 0
+        classification_result.urgency = 0
     
     print(f"Chat{st.session_state.chat_id}\nClassification: {classification_result}\n")
     return classification_result
