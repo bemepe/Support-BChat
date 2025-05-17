@@ -10,6 +10,7 @@ import streamlit as st
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime, UTC
+import pytz #hora España
 
 # STREAMLIT
 
@@ -70,6 +71,7 @@ def apply_styles():
         color: #003366 !important;
         margin: 0 !important;
         padding-top: 0 !important;
+        font-size: 20px !important;
     }
     /* Fondo blanco y contenido centrado en la barra lateral */
     section[data-testid="stSidebar"] {
@@ -77,6 +79,14 @@ def apply_styles():
         color: #000000 !important;
         text-align: center;
         padding: 20px;
+        width: 350px !important;
+        min-width: 350px !important;
+                
+    }
+     .block-container {
+        padding-left: 5rem !important;
+        padding-right: 5rem !important;
+        max-width: 1200px !important;
     }
 
     /* Títulos */
@@ -100,8 +110,9 @@ def apply_styles():
         padding: 10px;
         margin-bottom: 10px;
         margin-left: auto;
-        max-width: 75%;
+        max-width: 850px;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        font-size: 20px !important;
     }
                 
     /* Fondo blanco en el contenedor del input (chat input box completa) */
@@ -120,8 +131,9 @@ def apply_styles():
         padding: 10px;
         margin-bottom: 10px;
         margin-right: auto;
-        max-width: 75%;
+        max-width: 850px;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        font-size: 20px !important;
     }
 
 
@@ -134,10 +146,13 @@ def save_interaction(chat_id, role, message):
     """
     Saves an interaction (user or assistant) in the MongoDB chat history collection.
     """
+    if not chat_id:
+        print("chat_is is missing")
+        return
 
     history_collection.update_one(
         {"chat_id": chat_id},
-        {"$push": {"interactions": {"role": role, "message": message, "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")}}},
+        {"$push": {"interactions": {"role": role, "message": message, "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H:%M")}}},
         upsert=True    
     )
     
@@ -165,7 +180,7 @@ def invoke_chain(chain, input_data= None, context = None):
         st.session_state.chat_history.append({
             "role": "assistant", 
             "message": assistant_response,
-            "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")})
+            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H:%M")})
         
         save_interaction(st.session_state.chat_id, "assistant", assistant_response)
 
@@ -243,7 +258,7 @@ def handle_conversation():
         
 
         with st.chat_message("assistant"):
-            st.markdown("**Asistente:** " + welcome_message.content.strip().strip('"'))
+            st.markdown(welcome_message.content.strip().strip('"'))
         
         st.session_state.welcome_shown = True
         
@@ -260,7 +275,7 @@ def handle_conversation():
         st.session_state.chat_history.append({
         "role": "user",
         "message": user_input,
-        "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")
+        "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
         })
 
         with st.chat_message("user"):
@@ -269,8 +284,20 @@ def handle_conversation():
         save_interaction(st.session_state.chat_id, "user", user_input)
 
         if user_input.lower() == "exit":
+            bye_message = "Thank you for reaching out. The conversation has ended."
+            
             with st.chat_message("assistant"):
-                st.markdown("Thank you for reaching out. The conversation has ended.")
+                st.markdown(bye_message)
+                st.session_state.chat_history.append({
+                    "role": "assistant",
+                    "message": bye_message,
+                    "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
+                })
+
+            save_interaction(st.session_state.chat_id, "assistant", bye_message)
+
+
+
             st.session_state.chat_ended = True
             return True
            
@@ -347,7 +374,7 @@ def handle_conversation():
                 
                 #Si hay 3 valid = 0 seguidos, forzamos la clasificacion a unnecesary=1
                 if st.session_state.invalid_counter >= 3:
-                    st.session_state.missing_info = False # Ya no recogemos ams informacion del usuario
+                    st.session_state.missing_info = False # Ya no recogemos mas informacion del usuario
                     st.session_state.forced_unnecessary = True  
                     st.session_state.step = len(st.session_state.states) + 2 # Nos saltamos los pasos siguientes
                     
@@ -399,7 +426,7 @@ def handle_conversation():
         st.session_state.chat_history.append({
             "role": "assistant",
             "message": assistant_details,
-            "timestamp": datetime.now(UTC).strftime("%d/%m/%Y %H:%M:%S")
+            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
         })
         
         save_interaction(st.session_state.chat_id, "assistant", assistant_details)
@@ -412,8 +439,7 @@ def handle_conversation():
         return
 
     if (st.session_state.step == len(st.session_state.states) + 2) and user_input:
-        
-        # save_interaction(st.session_state.chat_id, "user", user_input)                
+                       
         st.session_state.step += 1 # step ==6 
 
         return True
@@ -454,10 +480,12 @@ def classify_conversation():
         context=f"Classification for Chat {st.session_state.chat_id}"
     )
 
-    # Corregir incoherencia: urgencia y uso innecesario no pueden coexistir, se asigna a innecesario
+    if classification_result is None:
+        ("classification_result is None (model returned nothing)")
 
+    # Corregir incoherencia: urgencia y uso innecesario no pueden coexistir, se asigna a innecesario
     if int(classification_result.urgency) == 1 and int(classification_result.unnecessary) == 1:
-        classification_result.urgency = 0
+        classification_result = classification_result.copy(update={"urgency": 0})
     
     print(f"Chat{st.session_state.chat_id}\nClassification: {classification_result}\n")
     return classification_result
@@ -529,13 +557,17 @@ def main():
     """
     Main function to handle the entire flow: conversation, classification, and report generation.
     """
+
+    if "chat_id" not in st.session_state:
+        st.session_state.chat_id = f"{datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")}_{str(ObjectId())}"
+
+
     st.title("¡Bienvenido a Support-B Chat!")
     
-
     st.markdown("""
     <div style='text-align: center; color: #084f75;'>
-    <h3>Chatbot de Apoyo para Niños y Adolescentes</h3>
-    <p>
+    <h3 style = 'font-size: 28px;'>Chatbot de Apoyo para Niños y Adolescentes</h3>
+    <p style = 'font-size: 20px;'>
         Este es un espacio seguro donde puedes expresar cómo te sientes.<br>
         No estas solo/a, cada palabra cuenta y lo que sientes es importante.<br>
         Estoy aquí para escucharte, acompañarte y ayudarte de la mejor manera posible.
@@ -543,15 +575,14 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
+    
     apply_styles()
-    if "chat_id" not in st.session_state:
-        st.session_state.chat_id = f"{datetime.now().strftime('%d%m%Y-%H%M')}_{str(ObjectId())}"
     with st.sidebar:
 
         st.image("logo_chat.png", width=150)
         
         st.markdown(f"""
-        <div style='text-align: left; color: #084f75; font-size: 16px;'>
+        <div style='text-align: left; color: #084f75; font-size: 18px;'>
         <p><strong>Chat ID:</strong><br> {st.session_state.chat_id} </p>
 
         <p>📞 <strong>Teléfono de Contacto</strong><br>
@@ -559,7 +590,7 @@ def main():
 
         <p>📩 <strong>Correo</strong><br>
         <a href='mailto:beatriz.mendez.peraza@alumnos.upm.es' style='color: #04698d; text-decoration: none;'>
-        beatriz.mendez@alumnos.upm.es</a></p>
+        beatriz.mendez.peraza@alumnos.upm.es</a></p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -571,15 +602,17 @@ def main():
         # Clasificar la conversación basada en el historial
         classification = classify_conversation()
 
-        generate_final_message(classification)
+        if classification is None:
+            st.error("Classification failed. The model returned no result.")
+            return
         
         if classification is not None:
+            generate_final_message(classification)
             create_report(classification)
         # Crear y mostrar el reporte final
         else:
             print("Error: No classification result available.")
 
-        st.rerun()
 if __name__ =="__main__":
     main()
     

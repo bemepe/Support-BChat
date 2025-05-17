@@ -40,7 +40,7 @@ chat_3 = [
     {'role': 'assistant', 'message': 'What is your name?'},
     {'role': 'user', 'message': 'I am Daniel'},
     {'role': 'assistant', 'message': 'Where are you from, Daniel?'},
-    {'role': 'user', 'message': 'I live in Texas'},
+    {'role': 'user', 'message': 'I live in Caceres'},
     {'role': 'assistant', 'message': 'Thank you for telling me. How are you feeling today?'},
     {'role': 'user', 'message': 'I feel a bit lonely because I moved to a new school and I don\'t know anyone.'},
     {'role': 'assistant', 'message': 'I see, it can be hard to adjust to a new place. Have you tried joining any clubs or activities?'},

@@ -85,7 +85,7 @@ def get_final_prompt(classification):
 
     # Diccionario de posibilidades según la clasificación
     possibilities = {
-        "urgent": "respond diretly to the user with a short, warm, and encouraging farewell message. Thank the user for sharing their feelings and situation and inform them that a report has been created and their case will be referred immediately to a medical professional for help.",
+        "urgent": "respond diretly to the user with a short, warm, and encouraging farewell message. Thank the user for sharing their feelings and situation. Inform them clearly that their case has been classified as urgent and that a mental health professional will be notified immediately and get in touch as soon as possible",
         "non_urgent": "respond diretly to the user with a short, warm, and encouraging farewell message. Thank the user and let them know a report has been created and will be reviewed by a professional. Encourage them to take care and reach out again if needed.",
         "unnecessary": "respond directly to the user to gently remind them that this chat is for serious situations only, and stresses the importance of using the platform responsibly to ensure that it remains available to those who really need it",
     }
