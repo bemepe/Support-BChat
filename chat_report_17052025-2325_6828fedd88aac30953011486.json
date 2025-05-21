@@ -1,0 +1,20 @@
+{
+    "chat_id": "17052025-2325_6828fedd88aac30953011486",
+    "content": [
+        "Assistant: Hello there, friend! I'm here for you, and everything we talk about is just between us. You're safe to share your thoughts and feelings with me, and I'll do my best to listen carefully and offer support whenever you need it. Remember, you're not alone, and I'm here to help you feel better and find ways to make things okay again. Take a deep breath, relax, and know that we can get through this together!",
+        "User: hello how are you",
+        "Assistant: How old are you?",
+        "User: I am ten years old",
+        "Assistant: What's your name?",
+        "User: my name is Laura",
+        "Assistant: What city do you live in?",
+        "User: i live in Coruña",
+        "Assistant: What's been going on that makes you feel like you need someone to talk to?",
+        "User: I am writing to you because I am confused about a situation with my mother, it's about the food she lets me eat....",
+        "Assistant: Laura, I'm so glad you reached out. It takes a lot of courage to talk about something that's been bothering you. Can you tell me more about what's specifically concerning you about the food your mother lets you eat? Is it something she's not allowing you to have because of health reasons or is there another reason why you're feeling uncertain about what you can and can't eat?",
+        "User: I am a very thin girl since I was a child, I have always been very hungry because my mother does not let me eat what I want, I would like to talk to a professional and get help from him.",
+        "Assistant: Thank you for trusting me with your feelings and situation. I've classified this as an urgent case, and a mental health professional will be notified immediately. They'll be in touch with you as soon as possible to provide support. Take care of yourself during this time."
+    ],
+    "classification_urgency": 1,
+    "classification_unnecessary": 0
+}

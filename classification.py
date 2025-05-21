@@ -191,7 +191,7 @@ def validate_response(state,desc):
     possibilities = {
         "age": "The response should be a numeric value or a written number, representing age",
         "name": "The response should be a full name or a single name",
-        "location": "The response should specify a city",
+        "location": "The response should clearly mention the name of a city, even if the sentence includes additional context like 'I have moved from.., I now live in...', 'with my family', etc.",
         "situation": "The response should describe a personal problem, emotional struggle, family conflict, feelings of loneliness, fear, sadness, bullying, violence, or any situation that might affect the child's or adolescent's well-being."
     }
     # desc explica qué se espera en la respuesta del usuario, según el estado actual

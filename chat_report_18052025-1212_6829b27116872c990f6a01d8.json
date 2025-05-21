@@ -1,0 +1,22 @@
+{
+    "chat_id": "18052025-1212_6829b27116872c990f6a01d8",
+    "content": [
+        "Assistant: Hello there, friend! I'm here for you, and everything we talk about is completely safe and confidential. You can share as much or as little as you feel comfortable with me. I want you to know that you're not alone, and I'm here to listen and help in any way I can. Take a deep breath and let's start talking - I'm all ears!",
+        "User: Hello I need help ",
+        "Assistant: How old are you?",
+        "User: I am fourteen years old",
+        "Assistant: What's your name?",
+        "User: My name is Claudia ",
+        "Assistant: What city do you live in?",
+        "User: I live in Barcelona with my parents ",
+        "Assistant: What city do you live in?",
+        "User: In Barcelona ",
+        "Assistant: What's been going on that makes you feel like you need someone to talk to?",
+        "User: I’m in a bathroom near the metro station. I just finished my ballet class and two men started following me. I ran in here. I'm very scared",
+        "Assistant: Claudia, I'm so sorry you're feeling scared right now. Can you tell me more about what happened after you ran into this bathroom? What did those men say or do to make you feel uncomfortable or threatened?",
+        "User: I’m really scared to go out. They were waiting outside a moment ago. I've called my parents but they won't pick up the phone, please call someone.",
+        "Assistant: Thank you for trusting me with your feelings and situation. I've classified this as an urgent case, and a mental health professional will be notified immediately. They'll be in touch with you as soon as possible to provide support. Take care of yourself during this time."
+    ],
+    "classification_urgency": 1,
+    "classification_unnecessary": 0
+}

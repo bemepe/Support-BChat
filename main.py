@@ -152,7 +152,7 @@ def save_interaction(chat_id, role, message):
 
     history_collection.update_one(
         {"chat_id": chat_id},
-        {"$push": {"interactions": {"role": role, "message": message, "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H:%M")}}},
+        {"$push": {"interactions": {"role": role, "message": message, "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d/%m/%Y %H:%M:%S")}}},
         upsert=True    
     )
     
@@ -180,7 +180,7 @@ def invoke_chain(chain, input_data= None, context = None):
         st.session_state.chat_history.append({
             "role": "assistant", 
             "message": assistant_response,
-            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H:%M")})
+            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d/%m/%Y %H:%M:%S")})
         
         save_interaction(st.session_state.chat_id, "assistant", assistant_response)
 
@@ -275,7 +275,7 @@ def handle_conversation():
         st.session_state.chat_history.append({
         "role": "user",
         "message": user_input,
-        "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
+        "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d/%m/%Y %H:%M:%S")
         })
 
         with st.chat_message("user"):
@@ -291,12 +291,10 @@ def handle_conversation():
                 st.session_state.chat_history.append({
                     "role": "assistant",
                     "message": bye_message,
-                    "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
+                    "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d/%m/%Y %H:%M:%S")
                 })
 
             save_interaction(st.session_state.chat_id, "assistant", bye_message)
-
-
 
             st.session_state.chat_ended = True
             return True
@@ -426,7 +424,7 @@ def handle_conversation():
         st.session_state.chat_history.append({
             "role": "assistant",
             "message": assistant_details,
-            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d%m%Y-%H%M")
+            "timestamp": datetime.now(pytz.timezone("Europe/Madrid")).strftime("%d/%m/%Y %H:%M:%S")
         })
         
         save_interaction(st.session_state.chat_id, "assistant", assistant_details)
@@ -509,6 +507,8 @@ def generate_final_message(classification):
     
     with st.chat_message("assistant"):
         st.markdown(final_message.content.strip().strip('"'))
+    
+    st.session_state.chat_ended = True
 
 
 # CREA UN INFORME JSON CON LA CONVERSACION Y LA CLASIFICACION
@@ -538,8 +538,8 @@ def create_report(classification):
         }
 
         # Guardamos el report en un archivo local en formato JSON
-        with open (f"chat_report_{st.session_state.chat_id}.json", "w", encoding= "utf-8") as fich:
-            json.dump(report, fich, indent=4, ensure_ascii=False)
+        # with open (f"chat_report_{st.session_state.chat_id}.json", "w", encoding= "utf-8") as fich:
+        #     json.dump(report, fich, indent=4, ensure_ascii=False)
 
         reports_collection.update_one(
             {"chat_id": str(st.session_state.chat_id)},
