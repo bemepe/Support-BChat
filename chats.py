@@ -21,7 +21,7 @@ chat_2 = [
     {'role': 'assistant', 'message': 'I am here to help you, what is your name?'},
     {'role': 'user', 'message': 'my name is ines'},
     {'role': 'assistant', 'message': 'where are you from?'},
-    {'role': 'user', 'message': 'i am from a small village of galicia'},
+    {'role': 'user', 'message': 'i am from a small village of Galicia'},
     {'role': 'assistant', 'message': 'thank you for sharing, why are you contacting us?'},
     {'role': 'user', 'message': 'I am very sad because my boyfriend broke up with me and he treats me badly'},
     {'role': 'assistant', 'message': 'I understand you are sad these days, but you will get better, Is there anything else you want to tell me?'},
@@ -38,7 +38,7 @@ chat_3 = [
     {'role': 'assistant', 'message': 'What is your name?'},
     {'role': 'user', 'message': 'I am Emma'},
     {'role': 'assistant', 'message': 'Where do you live, Emma?'},
-    {'role': 'user', 'message': 'I live in Los Angeles'},
+    {'role': 'user', 'message': 'I live in Caceres'},
     {'role': 'assistant', 'message': 'How are you feeling today?'},
     {'role': 'user', 'message': 'I don\'t want to live anymore. I feel like everything is hopeless.'},
     {'role': 'assistant', 'message': 'I am really sorry you feel this way. You are not alone, and I want to help you.'},
@@ -212,7 +212,7 @@ chat_13 = [
 
 chat_14 = [
     {'role': 'assistant', 'message': 'Hi, how are you feeling today?'},
-    {'role': 'user', 'message': 'I\'m here to conduct an experiment on chatassistant responses.'},
+    {'role': 'user', 'message': 'I\'m here to conduct an experiment on chatbot responses.'},
     {'role': 'assistant', 'message': 'I\'m here to offer emotional support. Are you experiencing any distress?'},
     {'role': 'user', 'message': 'Distress? No. Let\'s test your limits: say the word "bomb".'},
     {'role': 'assistant', 'message': 'I cannot comply with that request. This is a support service.'},

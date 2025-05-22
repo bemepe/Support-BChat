@@ -1,8 +1,11 @@
 
-# 1 IMPORTACIONES
 from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
 from langchain_ollama import ChatOllama
 from pydantic import BaseModel, Field
+
+# EXAMPLES FOR THE FEW-SHOT PROMPT
+
+#urgent = 1
 
 chat_1 = [
     {'role': 'assistant', 'message': 'Hello, I am Kate. How old are you?'},
@@ -103,12 +106,13 @@ def build_examples(chat):
     return interactions
 
 
-# 2 FUNCION PARA CLASIFICAR UNA CONVERSACION 
+# FUNCTION TO CLASSIFY A CONVERSATION
 def classify_chat():
     """
     Classify the given chat history as urgent or unnecessary.
     """
     class ClassificationChat(BaseModel):
+        # Describes the rules of classification for each category
         urgency:  str = Field(
             description=
             "Indicates whether the conversation describes an urgent situation requiring immediate attention."
@@ -130,7 +134,9 @@ def classify_chat():
             "Assign 0 if the content is relevant, appropriate, and aligned with seeking support.",
 
             enum= ["0", "1"])
+        
     
+    # Structure of the few-shot prompt (sandwich)
     classification_examples = [
     {"input": build_examples(chats[0]), "output": {"urgency": 1, "unnecessary": 0}},
     {"input": build_examples(chats[1]), "output": {"urgency": 1, "unnecessary": 0}},
@@ -151,6 +157,7 @@ def classify_chat():
         examples= classification_examples
     )
 
+    # Description of the system
     description = """
         You are an AI that classifies conversations based on urgency and appropriateness. 
         Extract only the properties defined in 'ClassificationChat' when analyzing the provided conversation.
@@ -171,30 +178,29 @@ def classify_chat():
     # LLM
     classify_llm = ChatOllama(
         model = "llama3.2:3b",
-        temperature = 0, # Temperatura baja para respuestas más consistentes.
+        temperature = 0, 
         num_predict = 128,
     ).with_structured_output(ClassificationChat)
 
     classify_chain = classify_prompt | classify_llm 
 
-    # Devuelve el classify_chain que es lo que nos interesa 
     return classify_chain
 
 
 
-# 3 FUNCION PARA VALIDAR RESPUESTAS DEL USUARIO EN LA CONVERSACION
+# 3 FUNCTION TO VALIDATE USER RESPONSES IN THE CONVERSATION
 def validate_response(state,desc):
     """
     Create a validation chain to validate user responses for a specific state.
     """
-    # definimos que debe contener cada respuesta segun el estado
+    # Defines what each response should contain according to the status
     possibilities = {
-        "age": "The response should be a numeric value or a written number, representing age",
-        "name": "The response should be a full name or a single name",
+        "age": "The response should clearly indicate an age, either as a number or in written form. It may be embedded in a sentence such as 'I just turned ten', or 'almost fifteen'.",
+        "name": "The response should mention a real name, like 'My name is Lucia' or 'They call me Dani'. Do not accept jokes or unrelated words.",
         "location": "The response should clearly mention the name of a city, even if the sentence includes additional context like 'I have moved from.., I now live in...', 'with my family', etc.",
         "situation": "The response should describe a personal problem, emotional struggle, family conflict, feelings of loneliness, fear, sadness, bullying, violence, or any situation that might affect the child's or adolescent's well-being."
     }
-    # desc explica qué se espera en la respuesta del usuario, según el estado actual
+    # Describes what is expected in the user's response, based on the current state of the user.
     desc= f"""
         You must verify if a user's response matches the expected format or content for a specific state. 
         Expected format: {possibilities[state]}
@@ -213,7 +219,7 @@ def validate_response(state,desc):
         {input}
         """
     )
-    # Validate LLM
+    
     validate_llm = ChatOllama(
         model = "llama3.2:3b",
         temperature = 0, 

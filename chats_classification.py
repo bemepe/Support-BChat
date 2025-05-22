@@ -1,11 +1,6 @@
 
-from main import invoke_chain
 from chats import chat_1, chat_2, chat_3, chat_4, chat_14,  chat_5, chat_6, chat_7, chat_8, chat_9, chat_10, chat_11, chat_12, chat_13, chat_15, chat_16, chat_17, chat_18
 from langchain_openai import ChatOpenAI
-
-
-
-# 1 IMPORTACIONES
 from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
 from pydantic import BaseModel, Field
 
@@ -116,8 +111,6 @@ available_models = {
 }
 
 
-
-# 2 FUNCION PARA CLASIFICAR UNA CONVERSACION 
 def classify_chat(model_name):
     """
     Classify the given chat history as urgent or unnecessary.
@@ -194,12 +187,10 @@ def classify_chat(model_name):
         # organization="...",
         # other params...
     )
-    # .with_structured_output(ClassificationChat)
+
     
 
     classify_chain = classify_prompt | llm  
-
-    # Devuelve el classify_chain que es lo que nos interesa 
     return classify_chain
 
 def test_all_models(chat_id):

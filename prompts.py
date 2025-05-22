@@ -1,7 +1,7 @@
-# 1 IMPORTACIONES
+# 1 IMPORTS
 from langchain_core.prompts import PromptTemplate
 
-# 2 DEFINE EL MENSAJE DE BIENVENDIA 
+# 2 DEFINE THE WELCOME MESSAGE
 welcome_prompt = """
 You are a chatbot created to interact with children and adolescents in difficult situations. 
 Create a brief, warm, and empathetic welcome message that conveys security and support. 
@@ -17,20 +17,20 @@ welcome_assistant = PromptTemplate(
 
 current_state = "age"
 
-# 3 FUNCION QUE GENERA LAS PREGUNTAS DINAMICAS SEGUN EL ESTADO ACTUAL
+# FUNCTION THAT GENERATES DYNAMIC QUESTIONS ACCORDING TO CURRENT STATUS
 def get_info(state):
     """
     Generates a dynamic prompt based on the current state of the conversation.
     """
 
-    # Almacena las descripciones de cada estado, que tipo de informacion debe pedir el chatassistant
+    # Stores the descriptions of each state and describes what kind of information the assistant should ask for.
     possibilities = {
     "age": "the age of the user",
     "name": "the name of the user",
     "location": "the city where the user lives",
     "situation": "the reason why the user needs help and contacts the chat",
     }
-    # Verifica si state esta en possibilities y crea un mensaje para pedir ifn sobre la variable correspondiente
+    # Check if state is in possibilities and create a message to request information about the corresponding variable.
     if state in possibilities:
         get_info_prompt= f"""
         
@@ -46,7 +46,7 @@ def get_info(state):
         return "Invalid state. Please restart the conversation."
 
 
-    
+# DEFINES THE NECESSARY PROMPT TO LAUNCH A MORE DETAILED QUESTION.    
 details_prompt = """
 
 You are speaking to a young person who may be facing a difficult situation. 
@@ -81,16 +81,16 @@ def get_final_prompt(classification):
     elif urgency == 0 and unnecessary == 1:
         clsf = "unnecessary"
     else:
-        return None  # Clasificación no válida
+        return None  # invalid classification
 
-    # Diccionario de posibilidades según la clasificación
+    # Dictionary of possibilities according to classification
     possibilities = {
         "urgent": "respond diretly to the user with a short, warm, and encouraging farewell message. Thank the user for sharing their feelings and situation. Inform them clearly that their case has been classified as urgent and that a mental health professional will be notified immediately and get in touch as soon as possible",
         "non_urgent": "respond diretly to the user with a short, warm, and encouraging farewell message. Thank the user and let them know a report has been created and will be reviewed by a professional. Encourage them to take care and reach out again if needed.",
         "unnecessary": "respond directly to the user to gently remind them that this chat is for serious situations only, and stresses the importance of using the platform responsibly to ensure that it remains available to those who really need it",
     }
 
-    # Creamos el prompt dinámico
+    # We create the dynamic prompt
     if clsf in possibilities:
         final_prompt = f"""
             You are ending a conversation with a young user.
