@@ -28,16 +28,6 @@ The goal is to optimize human resources, ensure high-quality initial support, an
 
 
 <h3>Setup Instructions</h3>
-<pre>
-git clone https://github.com/bemepe/Support-BChat.git
-cd Support-BChat
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-docker run --name chatbot-mongo -p 27017:27017 -d mongo
-ollama serve 
-streamlit run main.py
-</pre>
 
 <li><b>Set up MongoDB using Docker:</b>
   <p>Before running these commands, make sure you have <b>Docker</b> and <b>mongosh</b> installed. You can follow the official MongoDB instructions here: 
@@ -59,29 +49,53 @@ streamlit run main.py
 </li>
 
 <li><b>Install and configure Ollama and Llama 3.2:</b>
-  <p>To run the language model locally, you need to install <b>Ollama</b>, a tool for serving large language models efficiently on your machine.</p>
+  <p>Ollama is a local inference server that allows you to run large language models like Llama 3.2 directly on your machine. You can follow the official instructions here: 
+  <a href="https://ollama.com/download" target="_blank">Download Ollama</a>.</p>
 
   <ol>
-    <li>
-      <b>Download Ollama:</b>  
-      Visit the official website and follow the instructions for your operating system:  
-      <a href="https://ollama.com/download" target="_blank">https://ollama.com/download</a>
+    <li><b>Download and install Ollama:</b>
+      <p>Go to <a href="https://ollama.com/download" target="_blank">https://ollama.com/download</a> and download the installer for your operating system. Follow the setup instructions.</p>
     </li>
-
-    <li>
-      <b>Start the Ollama server:</b>  
+    <li><b>Start the Ollama server:</b>
       <pre>ollama serve</pre>
     </li>
-
-    <li>
-      <b>Run the Llama 3.2 model (3b version):</b>  
+    <li><b>Run the Llama 3.2 model (3b version):</b>
       <pre>ollama run llama3.2:3b</pre>
-      <p>This will automatically download and start the model the first time it is executed.</p>
+      <p>This command will automatically download the model (if not already present) and start it for usage.</p>
+    </li>
+  </ol>
+</li>
+
+<li><b>Install Langchain:</b>
+  <p>Langchain is used to manage the structure of the conversation, prompt templates, and the interaction between the chatbot and the LLM (Llama 3.2).</p>
+
+  <ol>
+    <li><b>Install Langchain Core:</b>
+      <p>This is required to use prompt templates, chains, and other core functionality like <code>PromptTemplate</code> from <code>langchain_core.prompts</code>.</p>
+      <pre>pip install langchain-core</pre>
+    </li>
+
+    <li><b>Install Langchain Ollama:</b>
+      <p>This module allows Langchain to connect directly with the Ollama server that runs the Llama 3.2 model.</p>
+      <pre>pip install langchain-ollama</pre>
     </li>
   </ol>
 </li>
 
 
+<li><b>Install and launch Streamlit:</b>
+  <p>Streamlit is used to create the web interface of the chatbot. It will open automatically in your browser when you run the app.</p>
+
+  <ol>
+    <li><b>Install Streamlit with pip:</b>
+      <pre>pip install streamlit</pre>
+    </li>
+    <li><b>Launch the app:</b>
+      <pre>streamlit run main.py</pre>
+      <p>This command will start the chatbot interface locally on <code>http://localhost:8501</code>.</p>
+    </li>
+  </ol>
+</li>
 
 
 <li><b>(Optional) Configure OpenRouter key:</b>
@@ -89,9 +103,20 @@ streamlit run main.py
   <pre>export OPENROUTER_API_KEY=your_key_here</pre>
   </li>
 
-  <li><b>Run the chatbot:</b>
-  <pre>streamlit run main.py</pre>
-  </li>
+
+
+
+<h2>📁 Repository Structure</h2>
+<pre>
+.
+├── main.py                   # Main Streamlit app and logic
+├── prompts.py                # Dynamic prompts and farewell messages
+├── classification.py         # Classification and validation logic
+├── chats.py                  # Examples of simulated chats
+├── chats_classification.py   # Classification of simulated chats
+├── README.md                 # Project documentation
+</pre>
+
 
 <h2>🧭 How It Works</h2>
 <p>
@@ -105,17 +130,5 @@ The system works through a state-driven conversational flow and validations
   <li>Once the conversation ends, the system classifies it as <i>urgent</i>, <i>non-urgent</i>, or <i>unnecessary</i> using a large language model.</li>
   <li>A concise, empathetic final message is sent to the user, and a report is generated and saved automatically.</li>
 </ul>
-
-
-<h2>📁 Repository Structure</h2>
-<pre>
-.
-├── main.py                   # Main Streamlit app and logic
-├── prompts.py                # Dynamic prompts and farewell messages
-├── classification.py         # Classification and validation logic
-├── chats.py                  # Examples of simulated chats
-├── chats_classification.py   # Classification of simulated chats
-├── README.md                 # Project documentation
-</pre>
 
 
