@@ -95,6 +95,7 @@ def get_final_prompt(classification):
         final_prompt = f"""
             You are ending a conversation with a young user.
             The user has shared their situation with you, and it has been classified as: {clsf}
+            Do not tell the user the classification. 
             You should: {possibilities[clsf]}
             Your answer must be very concise, respectful, and appropriate to the conversation.
             Do not explain what you're doing or refer to yourself. 

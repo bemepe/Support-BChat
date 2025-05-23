@@ -2,7 +2,6 @@
 
 from langchain_ollama import ChatOllama
 from classification import classify_chat, validate_response
-import json
 from prompts import welcome_assistant, get_info, details_assistant, get_final_prompt
 from icecream import ic
 from langchain_core.prompts import PromptTemplate
