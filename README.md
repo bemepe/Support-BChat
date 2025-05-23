@@ -59,29 +59,28 @@ streamlit run main.py
 </li>
 
 <li><b>Install and configure Ollama and Llama 3.2:</b>
-  <p>
-    To run the language model locally, you need to install <b>Ollama</b>, which is a tool for serving large language models efficiently on your machine.
-  </p>
+  <p>To run the language model locally, you need to install <b>Ollama</b>, a tool for serving large language models efficiently on your machine.</p>
 
   <ol>
     <li>
       <b>Download Ollama:</b>  
-      Visit the official website and follow the instructions for your operating system:<br>
+      Visit the official website and follow the instructions for your operating system:  
       <a href="https://ollama.com/download" target="_blank">https://ollama.com/download</a>
     </li>
 
     <li>
-      <b>Start the Ollama server:</b>
+      <b>Start the Ollama server:</b>  
       <pre>ollama serve</pre>
     </li>
 
     <li>
-      <b>Run the Llama 3.2 model (3b version):</b>
+      <b>Run the Llama 3.2 model (3b version):</b>  
       <pre>ollama run llama3.2:3b</pre>
-      <p>This will automatically download and start the model the first time it's executed.</p>
+      <p>This will automatically download and start the model the first time it is executed.</p>
     </li>
   </ol>
 </li>
+
 
 
 
