@@ -1,4 +1,4 @@
-<h1> 💬 Design and Development of an Automated and Controllable Chatbot for Assistance of Children and Adolescents in Risk</h1>
+<h1> 💬 Design and Development of an Automated and Controllable Chatbot for Assistance of Children and Adolescents at Risk</h1>
 
 <h2>📄 Summary</h2>
 <p>
@@ -14,6 +14,7 @@ The goal is to optimize human resources, ensure high-quality initial support, an
 </ul>
 </p>
 
+
 <h2>⚙️ Installation</h2>
 
 <h3>Technologies Used</h3>
@@ -26,82 +27,76 @@ The goal is to optimize human resources, ensure high-quality initial support, an
   <li><b>MongoDB</b> – Stores chat history and classification reports.</li>
 </ul>
 
-
 <h3>Setup Instructions</h3>
+<ul>
 
-<li><b>Set up MongoDB using Docker:</b>
-  <p>Before running these commands, make sure you have <b>Docker</b> and <b>mongosh</b> installed. You can follow the official MongoDB instructions here: 
-  <a href="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/" target="_blank">
-  Install MongoDB Community with Docker</a>.</p>
-
-  <ol>
-    <li><b>Pull the MongoDB Docker image:</b>
-      <pre>docker pull mongodb/mongodb-community-server:latest</pre>
-    </li
-    <li><b>Run MongoDB as a container:</b>
-      <pre>docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest</pre>
-      <p>This command maps port <code>27017</code> on the container to your local machine, so you can connect to MongoDB using <code>localhost:27017</code>.</p>
-    </li>
-    <li><b>Check if the container is running:</b>
-      <pre>docker container ls</pre>
-    </li>
-  </ol>
-</li>
-
-<li><b>Install and configure Ollama and Llama 3.2:</b>
-  <p>Ollama is a local inference server that allows you to run large language models like Llama 3.2 directly on your machine. You can follow the official instructions here: 
-  <a href="https://ollama.com/download" target="_blank">Download Ollama</a>.</p>
-
-  <ol>
-    <li><b>Download and install Ollama:</b>
-      <p>Go to <a href="https://ollama.com/download" target="_blank">https://ollama.com/download</a> and download the installer for your operating system. Follow the setup instructions.</p>
-    </li>
-    <li><b>Start the Ollama server:</b>
-      <pre>ollama serve</pre>
-    </li>
-    <li><b>Run the Llama 3.2 model (3b version):</b>
-      <pre>ollama run llama3.2:3b</pre>
-      <p>This command will automatically download the model (if not already present) and start it for usage.</p>
-    </li>
-  </ol>
-</li>
-
-<li><b>Install Langchain:</b>
-  <p>Langchain is used to manage the structure of the conversation, prompt templates, and the interaction between the chatbot and the LLM (Llama 3.2).</p>
-
-  <ol>
-    <li><b>Install Langchain Core:</b>
-      <p>This is required to use prompt templates, chains, and other core functionality like <code>PromptTemplate</code> from <code>langchain_core.prompts</code>.</p>
-      <pre>pip install langchain-core</pre>
-    </li>
-
-    <li><b>Install Langchain Ollama:</b>
-      <p>This module allows Langchain to connect directly with the Ollama server that runs the Llama 3.2 model.</p>
-      <pre>pip install langchain-ollama</pre>
-    </li>
-  </ol>
-</li>
-
-
-<li><b>Install and launch Streamlit:</b>
-  <p>Streamlit is used to create the web interface of the chatbot. It will open automatically in your browser when you run the app.</p>
-
-  <ol>
-    <li><b>Install Streamlit with pip:</b>
-      <pre>pip install streamlit</pre>
-    </li>
-    <li><b>Launch the app:</b>
-      <pre>streamlit run main.py</pre>
-      <p>This command will start the chatbot interface locally on <code>http://localhost:8501</code>.</p>
-    </li>
-  </ol>
-</li>
-
-
-<li><b>(Optional) Configure OpenRouter key:</b>
-  <p>If using OpenRouter, set your API key as an environment variable:</p>
-  <pre>export OPENROUTER_API_KEY=your_key_here</pre>
+  <li><b>Set up MongoDB using Docker:</b>
+    <p>Before running these commands, make sure you have <b>Docker</b> and <b>mongosh</b> installed. You can follow the official MongoDB instructions here: 
+    <a href="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/" target="_blank">
+    Install MongoDB Community with Docker</a>.</p>
+    <ol>
+      <li><b>Pull the MongoDB Docker image:</b>
+        <pre>docker pull mongodb/mongodb-community-server:latest</pre>
+      </li>
+      <li><b>Run MongoDB as a container:</b>
+        <pre>docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest</pre>
+        <p>This maps port <code>27017</code> to your machine so MongoDB is accessible at <code>localhost:27017</code>.</p>
+      </li>
+      <li><b>Check if the container is running:</b>
+        <pre>docker container ls</pre>
+      </li>
+    </ol>
   </li>
+
+  <li><b>Install and configure Ollama and Llama 3.2:</b>
+    <p>Ollama is a local inference server to run large language models like Llama 3.2 on your machine.</p>
+    <ol>
+      <li><b>Download and install Ollama:</b>
+        <p>Go to <a href="https://ollama.com/download" target="_blank">https://ollama.com/download</a> and follow the setup instructions.</p>
+      </li>
+      <li><b>Start the Ollama server:</b>
+        <pre>ollama serve</pre>
+      </li>
+      <li><b>Run the Llama 3.2 model (3b version):</b>
+        <pre>ollama run llama3.2:3b</pre>
+        <p>This will download and launch the model automatically on first use.</p>
+      </li>
+    </ol>
+  </li>
+
+  <li><b>Install Langchain:</b>
+    <p>Langchain manages the conversation logic, prompt templates, and connection with the LLM.</p>
+    <ol>
+      <li><b>Install Langchain Core:</b>
+        <p>Used for building prompts and chains via <code>langchain_core.prompts</code>.</p>
+        <pre>pip install langchain-core</pre>
+      </li>
+      <li><b>Install Langchain Ollama:</b>
+        <p>Required to connect Langchain with your Ollama LLM instance.</p>
+        <pre>pip install langchain-ollama</pre>
+      </li>
+    </ol>
+  </li>
+
+  <li><b>Install and launch Streamlit:</b>
+    <p>Streamlit powers the user interface of the chatbot and runs in the browser.</p>
+    <ol>
+      <li><b>Install Streamlit:</b>
+        <pre>pip install streamlit</pre>
+      </li>
+      <li><b>Launch the app:</b>
+        <pre>streamlit run main.py</pre>
+        <p>It will open at <code>http://localhost:8501</code>.</p>
+      </li>
+    </ol>
+  </li>
+
+  <li><b>(Optional) Configure OpenRouter key:</b>
+    <p>If you're using OpenRouter as a model backend, set your API key:</p>
+    <pre>export OPENROUTER_API_KEY=your_key_here</pre>
+  </li>
+
+</ul>
 
 
 
@@ -119,16 +114,47 @@ The goal is to optimize human resources, ensure high-quality initial support, an
 
 
 <h2>🧭 How It Works</h2>
+
 <p>
-The system works through a state-driven conversational flow and validations
+When the user enters the platform, they are greeted with the main chatbot interface, which includes a clear title and a welcoming header.
 </p>
-<ul>
-  <li>When launched, it displays a warm welcome message via Streamlit in the browser.</li>
-  <li>It then collects key information step by step: <b>age</b>, <b>name</b>, <b>location</b>, and <b>situation</b>.</li>
-  <li>Each response is validated to ensure it's appropriate and clear.</li>
-  <li>All data is stored in real time in a MongoDB database.</li>
-  <li>Once the conversation ends, the system classifies it as <i>urgent</i>, <i>non-urgent</i>, or <i>unnecessary</i> using a large language model.</li>
-  <li>A concise, empathetic final message is sent to the user, and a report is generated and saved automatically.</li>
-</ul>
+
+<img src="assets/chat_start.png" alt="Initial chat interface" width="600"/>
+
+<p>
+The chatbot begins with an automatic welcome message. The user types a response into the input bar and presses "Enter" to continue.
+</p>
+
+<img src="assets/welcome_message.png" alt="Welcome message and input bar" width="600"/>
+
+<p>
+Next, the chatbot initiates the data collection phase, asking for: <b>age</b>, <b>name</b>, <b>location</b>, and <b>situation</b>. The user simply replies, while the system validates each response in the background.
+</p>
+
+<img src="assets/validation_terminal.png" alt="Validation output in terminal (developer view)" width="600"/>
+
+<p>
+After successfully collecting all essential information, the chatbot asks one final, more detailed question about the user's situation. This answer is not validated, but it is included in the classification.
+</p>
+
+<img src="assets/detailed_question.png" alt="Detailed follow-up question" width="600"/>
+
+<p>
+The conversation is then automatically classified based on urgency and appropriateness. A final farewell message is displayed based on this result.
+</p>
+
+<img src="assets/farewell_message.png" alt="Final message based on classification" width="600"/>
+
+<p>
+A report is generated and saved to MongoDB, containing the full conversation and classification details. The terminal shows real-time updates for these operations.
+</p>
+
+<img src="assets/chat_report.png" alt="Example of report saved in terminal or MongoDB" width="600"/>
+
+<p>
+Once the conversation ends, the input bar disappears, signaling to the user that the session is closed and preventing further interaction.
+</p>
+
+<img src="assets/input_disabled.png" alt="Input disabled after chat ends" width="600"/>
 
 
