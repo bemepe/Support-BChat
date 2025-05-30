@@ -119,19 +119,18 @@ The goal is to optimize human resources, ensure high-quality initial support, an
 When the user enters the platform, they are greeted with the main chatbot interface, which includes a clear title and a welcoming header.
 </p>
 
-<img src="assets/chat_start.png" alt="Initial chat interface" width="600"/>
 
 <p>
 The chatbot begins with an automatic welcome message. The user types a response into the input bar and presses "Enter" to continue.
 </p>
 
-<img src="assets/welcome_message.png" alt="Welcome message and input bar" width="600"/>
+<img src="interface_user.png" alt="Welcome message and input bar" width="600"/>
 
 <p>
 Next, the chatbot initiates the data collection phase, asking for: <b>age</b>, <b>name</b>, <b>location</b>, and <b>situation</b>. The user simply replies, while the system validates each response in the background.
 </p>
 
-<img src="assets/validation_terminal.png" alt="Validation output in terminal (developer view)" width="600"/>
+<img src="urgente_visual.png" alt="Validation output in terminal (developer view)" width="600"/>
 
 <p>
 After successfully collecting all essential information, the chatbot asks one final, more detailed question about the user's situation. This answer is not validated, but it is included in the classification.
