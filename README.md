@@ -147,7 +147,7 @@ The conversation is then automatically classified based on urgency and appropria
 A report is generated and saved to MongoDB, containing the full conversation and classification details. The terminal shows real-time updates for these operations.
 </p>
 
-<img src="report.png" alt="Example of report saved in Visual Studio Code terminal " width="600"/>
+<img src="report.png" alt="Example of report saved in Visual Studio Code terminal " width="800"/>
 
 <p>
 Once the conversation ends, the input bar disappears, signaling to the user that the session is closed and preventing further interaction.
