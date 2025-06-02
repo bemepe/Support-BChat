@@ -136,24 +136,23 @@ Next, the chatbot initiates the data collection phase, asking for: <b>age</b>, <
 After successfully collecting all essential information, the chatbot asks one final, more detailed question about the user's situation. This answer is not validated, but it is included in the classification.
 </p>
 
-<img src="assets/detailed_question.png" alt="Detailed follow-up question" width="600"/>
 
 <p>
 The conversation is then automatically classified based on urgency and appropriateness. A final farewell message is displayed based on this result.
 </p>
 
-<img src="assets/farewell_message.png" alt="Final message based on classification" width="600"/>
+<img src="urgente2.0.png" alt="Complete conversation with final message based on classification" width="600"/>
 
 <p>
 A report is generated and saved to MongoDB, containing the full conversation and classification details. The terminal shows real-time updates for these operations.
 </p>
 
-<img src="assets/chat_report.png" alt="Example of report saved in terminal or MongoDB" width="600"/>
+<img src="report.png" alt="Example of report saved in Visual Studio Code terminal " width="800"/>
 
 <p>
 Once the conversation ends, the input bar disappears, signaling to the user that the session is closed and preventing further interaction.
 </p>
 
-<img src="assets/input_disabled.png" alt="Input disabled after chat ends" width="600"/>
+
 
 
